@@ -1,0 +1,59 @@
+main section {
+  overflow-y: auto; /* Independent scrolling for section */
+  padding: 20px;
+  background: white;
+  color: #2c3e50;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+main section table {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-collapse: collapse;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+main section table thead {
+  background: #2c3e50;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+main section table td, main section table th {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+main section table td.fecha, main section table th.fecha {
+  width: 180px; /* Ampliando el campo de fecha */
+}
+
+main section table tbody tr:nth-child(even) {
+  background: #e0e6ed;
+}
+
+section iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.consola {
+  padding: 20px;
+  color: white;
+  background: #1e1e1e;
+  border-radius: 10px;
+  text-shadow: 0px 0px 4px #00ff00;
+  display: none;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.contienedocumentos {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}

@@ -1,0 +1,17 @@
+.bjtabla{
+	width:100%;
+	font-family:monospace;
+	border-collapse: collapse;
+}
+.bjtabla thead tr{
+	background:#2c3e50;
+	color:white;
+	
+}
+.bjtabla thead tr th{
+	padding:10px;
+}
+.bjtabla tbody tr td{
+	padding:10px;
+}
+

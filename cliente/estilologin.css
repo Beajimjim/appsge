@@ -1,0 +1,137 @@
+/* Definición de fuente personalizada */
+@font-face {
+  font-family: Ubuntu;
+  src: url(Ubuntu-R.ttf);
+}
+
+/* Estilos generales para el cuerpo de la página */
+body {
+  font-family: Ubuntu, sans-serif;
+  background: #2c3e50;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+/* Contenedor principal dividido en dos mitades */
+.container {
+  display: flex;
+  height: 100%;
+}
+
+/* Mitad izquierda: muestra el texto en párrafos uno debajo del otro */
+.left-half {
+  flex: 1;
+  background: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+}
+
+.left-half p {
+  margin: 10px 0;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+/* Mitad derecha: área de login */
+.right-half {
+  flex: 1;
+  background: #2c3e50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo moderno para el formulario de login */
+#formlogin {
+  width: 320px;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+#formlogin:hover {
+  transform: translateY(-5px);
+}
+
+/* Estilo para el logo */
+#logo {
+  width: 40%;
+  margin-bottom: 20px;
+}
+
+/* Descripción del login */
+.login-desc {
+  font-size: 14px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+/* Estilos para campos de entrada */
+input[type="text"],
+input[type="password"] {
+  width: 80%;
+  padding: 12px 15px;
+  margin: 10px auto;
+  display: block;
+  border: 1px solid #2c3e50;
+  border-radius: 25px;
+  outline: none;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #2c3e50;
+  box-shadow: 0 0 8px rgba(44, 62, 80, 0.5);
+}
+
+/* Estilo moderno para el botón de login */
+button {
+  width: 80%;
+  padding: 12px;
+  margin: 15px auto;
+  display: block;
+  background: #2c3e50;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+button:hover {
+  background: #1f2d3d;
+  transform: scale(1.02);
+}
+
+/* Estilos responsive para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .left-half {
+    display: none;
+  }
+  .right-half {
+    flex: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+}
