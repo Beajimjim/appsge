@@ -1,4 +1,4 @@
-# APP8 - Documentación del Proyecto
+# Sistema de Gestión Empresarial
 
 ## Descripción del Proyecto
 
