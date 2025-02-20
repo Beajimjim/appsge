@@ -80,6 +80,32 @@ Esta carpeta contiene archivos relacionados con el procesamiento y análisis de 
 
 ---
 
+## 6. Editor de Documentos (`editor/`)
+Este módulo permite la creación y edición de documentos en un entorno similar a Word. Incluye herramientas de formato, impresión y guardado en formato DOCX.
+
+###  Archivos principales:
+- **`index.html`** - Página principal del editor de documentos con una interfaz centrada en la edición de texto.
+- **`comportamiento.js`** *(incluido en el HTML)* - Maneja funciones de edición, como aplicar negrita, cursiva, subrayado, cambiar la fuente y tamaño del texto.
+- **`estilo.css`** *(dentro del HTML)* - Define la apariencia de la interfaz, con un diseño limpio y centrado en la experiencia de escritura.
+
+---
+
+## 7. Gestor de Archivos (`gestor/`)
+Este módulo permite la gestión de archivos mediante una interfaz de **drag & drop**, además de listar, subir y eliminar archivos.
+
+###  Archivos principales:
+- **`index.html`** - Interfaz principal del gestor de archivos. Permite la subida, listado y eliminación de archivos.
+- **`upload.php`** - Maneja la subida de archivos al servidor.
+- **`list_files.php`** - Devuelve una lista de archivos almacenados en el servidor en formato JSON.
+- **`delete.php`** - Permite la eliminación de archivos seleccionados.
+
+###  Estructura de módulos:
+- **`drop-area/`** - Sección de la interfaz para arrastrar y soltar archivos.
+- **`file-list/`** - Muestra los archivos disponibles en el servidor.
+- **`acciones/`** - Contiene los botones para descargar y eliminar archivos.
+
+---
+
 ## Instalación y Configuración
 
 1. Clonar el repositorio:
