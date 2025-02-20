@@ -26,5 +26,30 @@ function muestraBI(){
 	}
 }
 
+function generarDocumento(){
+	//// BUSINESS ANALYTICS ////
+	
+	document.querySelector("#generarDocumento").onclick = function(){			
+		let aplicacion = localStorage.getItem('crimson_aplicacion')	
+		       
+		document.querySelector("section").innerHTML = ""
+		let marco = document.createElement("iframe")
+		marco.setAttribute("src", `../generarDocumento/?aplicacion=${encodeURIComponent(aplicacion)}`);
+		document.querySelector("section").appendChild(marco)
+	}
+}
 
+
+function subirArchivos(){
+	//// BUSINESS ANALYTICS ////
+	
+	document.querySelector("#subirArchivos").onclick = function(){			
+		let aplicacion = localStorage.getItem('crimson_aplicacion')	
+		       
+		document.querySelector("section").innerHTML = ""
+		let marco = document.createElement("iframe")
+		marco.setAttribute("src", `../subirArchivos/?aplicacion=${encodeURIComponent(aplicacion)}`);
+		document.querySelector("section").appendChild(marco)
+	}
+}
 

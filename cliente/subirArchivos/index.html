@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Gestor de Archivos - Drag & Drop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #file-container {
+            background: white;
+            width: 60%;
+            max-width: 900px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            position: relative;
+            text-align: center;
+        }
+
+        /* 🔹 Botón de cierre (✕) en la parte superior derecha */
+        #closeButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            color: gray;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #closeButton:hover {
+            color: black;
+        }
+
+        /* 🔹 Área de arrastrar y soltar */
+        #drop-area {
+            border: 2px dashed #2c3e50;
+            padding: 30px;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #drop-area.highlight {
+            background-color: #dfe6e9;
+        }
+
+        /* 🔹 Lista de archivos */
+        #file-list {
+            list-style: none;
+            padding: 0;
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .file-item img {
+            max-width: 50px;
+            height: auto;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .file-item button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
+
+        .file-item button:hover {
+            background: #1f2d3a;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="file-container">
+        <!-- 🔹 Botón de cierre en la parte superior derecha -->
+        <button id="closeButton" onclick="top.location.href='../supercontrolador'">✕</button>
+
+        <h2>Gestor de Archivos</h2>
+        <div id="drop-area">
+            <p>Arrastra y suelta archivos aquí o haz clic para seleccionar</p>
+            <input type="file" id="file-input" multiple style="display: none;">
+        </div>
+        <ul id="file-list"></ul>
+    </div>
+
+    <script>
+        const dropArea = document.getElementById("drop-area");
+        const fileInput = document.getElementById("file-input");
+        const fileList = document.getElementById("file-list");
+
+        // Cargar archivos al iniciar
+        document.addEventListener("DOMContentLoaded", loadFiles);
+
+        dropArea.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropArea.classList.add("highlight");
+        });
+
+        dropArea.addEventListener("dragleave", () => dropArea.classList.remove("highlight"));
+
+        dropArea.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dropArea.classList.remove("highlight");
+            handleFiles(e.dataTransfer.files);
+        });
+
+        dropArea.addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", (e) => handleFiles(e.target.files));
+
+        function handleFiles(files) {
+            for (const file of files) {
+                const formData = new FormData();
+                formData.append("file", file);
+
+                fetch("upload.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(() => {
+                    loadFiles(); // Recargar lista
+                })
+                .catch(error => console.error("Error al subir el archivo:", error));
+            }
+        }
+
+        function loadFiles() {
+            fileList.innerHTML = "";
+
+            fetch("list_files.php")
+                .then(response => response.json())
+                .then(files => {
+                    files.forEach(file => {
+                        displayFile(file);
+                    });
+                })
+                .catch(error => console.error("Error al cargar archivos:", error));
+        }
+
+        function displayFile(fileName) {
+            const listItem = document.createElement("li");
+            listItem.classList.add("file-item");
+
+            const fileNameSpan = document.createElement("span");
+            fileNameSpan.textContent = fileName;
+
+            // Miniatura si es una imagen
+            if (/\.(jpg|jpeg|png|gif)$/i.test(fileName)) {
+                const img = document.createElement("img");
+                img.src = `uploads/${fileName}`;
+                listItem.prepend(img);
+            }
+
+            const downloadButton = document.createElement("button");
+            downloadButton.textContent = "⬇ Descargar";
+            downloadButton.onclick = () => {
+                window.location.href = `uploads/${fileName}`;
+            };
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "🗑 Eliminar";
+            deleteButton.onclick = () => {
+                fetch("delete.php", {
+                    method: "POST",
+                    body: JSON.stringify({ fileName })
+                }).then(() => loadFiles());
+            };
+
+            listItem.appendChild(fileNameSpan);
+            listItem.appendChild(downloadButton);
+            listItem.appendChild(deleteButton);
+            fileList.appendChild(listItem);
+        }
+    </script>
+
+</body>
+</html>

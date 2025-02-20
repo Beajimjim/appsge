@@ -87,3 +87,69 @@ window.onload = function() {
         window.location = "../";
     };
 };
+
+document.addEventListener("DOMContentLoaded", function () {
+    const btnNotificaciones = document.getElementById("btn-notificaciones");
+    const contenedorNotificaciones = document.getElementById("notificaciones-container");
+    const listaNotificaciones = document.getElementById("notificaciones-lista");
+    const contadorNotificaciones = document.getElementById("contador-notificaciones");
+
+    let totalNotificaciones = 0;
+
+    // Función para obtener nuevas notificaciones
+    function obtenerNotificaciones() {
+        fetch("notificaciones.php")
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(notificacion => {
+                    agregarNotificacion(notificacion.id, notificacion.mensaje, notificacion.tipo);
+                });
+
+                actualizarContador();
+            })
+            .catch(error => console.error("Error obteniendo notificaciones:", error));
+    }
+
+    // Función para agregar una notificación a la lista
+    function agregarNotificacion(id, mensaje, tipo) {
+        const notificacion = document.createElement("div");
+        notificacion.classList.add("notificacion", tipo);
+        notificacion.dataset.id = id;
+
+        // Contenido de la notificación con el botón de eliminar en la parte superior derecha
+        notificacion.innerHTML = `
+            <button class="eliminar-notificacion" onclick="eliminarNotificacion(${id})">✖</button>
+            <span>${mensaje}</span>
+        `;
+
+        listaNotificaciones.appendChild(notificacion);
+        totalNotificaciones++;
+        actualizarContador();
+    }
+
+    // Función para eliminar una notificación manualmente
+    window.eliminarNotificacion = function (id) {
+        const notificacion = document.querySelector(`.notificacion[data-id='${id}']`);
+        if (notificacion) {
+            notificacion.remove();
+            totalNotificaciones--;
+            actualizarContador();
+        }
+    };
+
+    // Función para actualizar el contador de notificaciones
+    function actualizarContador() {
+        contadorNotificaciones.textContent = totalNotificaciones;
+    }
+
+    // Mostrar / ocultar la lista de notificaciones al hacer clic en la campanita
+    btnNotificaciones.addEventListener("click", function () {
+        contenedorNotificaciones.classList.toggle("oculto");
+    });
+
+    // Obtener nuevas notificaciones aleatorias cada 10 segundos
+    setInterval(obtenerNotificaciones, 10000);
+
+    // Cargar una notificación al inicio
+    obtenerNotificaciones();
+});

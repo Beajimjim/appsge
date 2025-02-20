@@ -2,6 +2,8 @@
 <ul>
     <h2>Aplicaciones</h2>
     <li id="businessanalytics"> Business Analytics</li>
+    <li id="generarDocumento"> Documento</li>
+    <li id="subirArchivos"> Subir Archivos</li>
   </ul>
   <ul ul id="tabla">
     <h2>Tablas</h2>
