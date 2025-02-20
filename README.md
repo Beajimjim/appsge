@@ -102,17 +102,5 @@ Esta carpeta contiene archivos relacionados con el procesamiento y análisis de 
 
 ---
 
-## Contribuciones
 
-Si deseas contribuir:
-
-1. Haz un **fork** del repositorio.
-2. Crea una nueva **rama** con tus cambios.
-3. Envía un **Pull Request** para revisión.
-
----
-
-## Licencia
-
-Este proyecto está licenciado bajo la [MIT License](LICENSE).
 
