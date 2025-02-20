@@ -12,6 +12,8 @@ APP8 es una aplicación web diseñada con una arquitectura cliente-servidor, pro
 APP8/
 │── cliente/
 │   │── bi/
+    │── generar documento/
+    │── subir archivo/
 │   │── escritorio/
 │   │── img/
 │   │── inc/
